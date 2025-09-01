@@ -40,7 +40,7 @@ const formSchema = z
         path: ["confirmPassword"], // attach error to confirmPassword field
     });
 
-export default function Register() {
+const RegisterPage = () => {
     const [register] = useRegisterMutation();
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -64,7 +64,6 @@ export default function Register() {
             if (result.success) {
                 toast.success(result.message);
             }
-           
         } catch (error) {
             const errMsg =
                 (error as { data?: { message?: string } })?.data?.message ||
@@ -72,7 +71,6 @@ export default function Register() {
             toast.error(errMsg);
         }
     };
-
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-50 p-4">
             <Card className="w-full max-w-md shadow-lg rounded-2xl">
@@ -198,4 +196,6 @@ export default function Register() {
             </Card>
         </div>
     );
-}
+};
+
+export default RegisterPage;

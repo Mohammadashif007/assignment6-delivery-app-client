@@ -22,6 +22,8 @@ import { Input } from "@/components/ui/input";
 import Logo from "@/assets/logo/Logo";
 import { Link } from "react-router";
 import { Separator } from "@/components/ui/separator";
+import { useLoginMutation } from "@/redux/features/auth/auth.api";
+import { toast } from "sonner";
 
 const formSchema = z.object({
     email: z.string().email("Please enter a valid email"),
@@ -29,6 +31,7 @@ const formSchema = z.object({
 });
 
 export default function Login() {
+    const [login] = useLoginMutation();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -37,8 +40,16 @@ export default function Login() {
         },
     });
 
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
-        console.log("Login Data:", values);
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        try {
+            const result = await login(values).unwrap();
+            console.log(result);
+            if (result.success) {
+                toast.success(result.message);
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
