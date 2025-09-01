@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/popover";
 import { Link } from "react-router";
 import Logo from "@/assets/logo/Logo";
+import { ModeToggle } from "./mode.toggle";
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
@@ -25,7 +26,7 @@ const navigationLinks = [
 export default function Navbar() {
     return (
         <header className="border-b">
-            <div className="container mx-auto flex h-16 items-center justify-between gap-4 px-6">
+            <div className="container mx-auto flex justify-between h-16 items-center  gap-4 px-6">
                 {/* Left side */}
                 <div className="flex items-center gap-2">
                     {/* Mobile menu trigger */}
@@ -87,10 +88,15 @@ export default function Navbar() {
                         </PopoverContent>
                     </Popover>
                     {/* Main nav */}
-                    <div className="flex items-center gap-6">
                         <Link to="/">
                             <Logo></Logo>
                         </Link>
+                </div>
+                {/* Right side */}
+                <div className="flex items-center gap-2">
+                    <div className="flex  items-center gap-6">
+
+
 
                         {/* Navigation menu */}
                         <NavigationMenu className="max-md:hidden">
@@ -108,9 +114,6 @@ export default function Navbar() {
                             </NavigationMenuList>
                         </NavigationMenu>
                     </div>
-                </div>
-                {/* Right side */}
-                <div className="flex items-center gap-2">
                     <Button
                         asChild
                         variant="ghost"
@@ -119,9 +122,7 @@ export default function Navbar() {
                     >
                         <a href="#">Sign In</a>
                     </Button>
-                    <Button asChild size="sm" className="text-sm">
-                        <a href="#">Get Started</a>
-                    </Button>
+                    <ModeToggle></ModeToggle>
                 </div>
             </div>
         </header>
