@@ -16,11 +16,8 @@ import { ModeToggle } from "./mode.toggle";
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
-    { href: "#", label: "Home" },
-    { href: "#", label: "Features" },
-    { href: "#", label: "Pricing" },
-    { to: "about", label: "About" },
-    // <Link to="about">About</Link>
+    { to: "/", label: "Home" },
+    { to: "/about", label: "About" },
 ];
 
 export default function Navbar() {
@@ -75,11 +72,8 @@ export default function Navbar() {
                                             key={index}
                                             className="w-full"
                                         >
-                                            <NavigationMenuLink
-                                                href={link.href}
-                                                className="py-1.5"
-                                            >
-                                                {link.label}
+                                            <NavigationMenuLink className="py-1.5">
+                                                <Link to={link.to}>{link.label}</Link>
                                             </NavigationMenuLink>
                                         </NavigationMenuItem>
                                     ))}
@@ -88,26 +82,20 @@ export default function Navbar() {
                         </PopoverContent>
                     </Popover>
                     {/* Main nav */}
-                        <Link to="/">
-                            <Logo></Logo>
-                        </Link>
+                    <Link to="/">
+                        <Logo></Logo>
+                    </Link>
                 </div>
                 {/* Right side */}
                 <div className="flex items-center gap-2">
                     <div className="flex  items-center gap-6">
-
-
-
                         {/* Navigation menu */}
                         <NavigationMenu className="max-md:hidden">
                             <NavigationMenuList className="gap-2">
                                 {navigationLinks.map((link, index) => (
                                     <NavigationMenuItem key={index}>
-                                        <NavigationMenuLink
-                                            href={link.href}
-                                            className="text-muted-foreground hover:text-primary py-1.5 font-medium"
-                                        >
-                                            {link.label}
+                                        <NavigationMenuLink asChild className="text-muted-foreground hover:text-primary py-1.5 font-medium">
+                                         <Link to={link.to}>{link.label}</Link>
                                         </NavigationMenuLink>
                                     </NavigationMenuItem>
                                 ))}
@@ -120,7 +108,7 @@ export default function Navbar() {
                         size="sm"
                         className="text-sm"
                     >
-                        <a href="#">Sign In</a>
+                        <Link to="/login">Login</Link>
                     </Button>
                     <ModeToggle></ModeToggle>
                 </div>
