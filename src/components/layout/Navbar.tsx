@@ -169,7 +169,10 @@ export default function Navbar() {
                     )}
 
                     {/* Dark mode toggle */}
+                    <div className="relative z-50">
+
                     <ModeToggle />
+                    </div>
                 </div>
             </div>
         </header>
