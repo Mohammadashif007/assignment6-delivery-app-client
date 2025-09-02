@@ -20,10 +20,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Logo from "@/assets/logo/Logo";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Separator } from "@/components/ui/separator";
-import { useLoginMutation } from "@/redux/features/auth/auth.api";
+import {
+    useLoginMutation,
+    useUserInfoQuery,
+} from "@/redux/features/auth/auth.api";
 import { toast } from "sonner";
+import { config } from "@/config";
 
 const formSchema = z.object({
     email: z.string().email("Please enter a valid email"),
@@ -31,7 +35,10 @@ const formSchema = z.object({
 });
 
 export default function Login() {
-    const [login] = useLoginMutation();
+    const [login, { isLoading }] = useLoginMutation();
+    const { data: userInfo } = useUserInfoQuery(undefined);
+    console.log(userInfo);
+    const navigate = useNavigate();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -43,9 +50,9 @@ export default function Login() {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             const result = await login(values).unwrap();
-            console.log(result);
             if (result.success) {
                 toast.success(result.message);
+                navigate("/");
             }
         } catch (error) {
             console.log(error);
@@ -116,7 +123,14 @@ export default function Login() {
                                 )}
                             />
                             <Button type="submit" className="w-full">
-                                Login
+                                {isLoading ? (
+                                    <div className="flex items-center gap-2">
+                                        <span className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></span>
+                                        Logging in...
+                                    </div>
+                                ) : (
+                                    "Login"
+                                )}
                             </Button>
                         </form>
                     </Form>
@@ -135,7 +149,13 @@ export default function Login() {
                         <Button variant="outline" className="w-full">
                             <Facebook className="h-5 w-5 text-blue-600" />
                         </Button>
-                        <Button variant="outline" className="w-full">
+                        <Button
+                            onClick={() =>
+                                window.open(`${config.baseUrl}/auth/google`)
+                            }
+                            variant="outline"
+                            className="w-full"
+                        >
                             <FcGoogle className="h-5 w-5" />
                         </Button>
                         <Button variant="outline" className="w-full">

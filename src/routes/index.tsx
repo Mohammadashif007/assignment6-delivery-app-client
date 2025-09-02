@@ -1,10 +1,9 @@
 import App from "@/App";
 import AdminLayout from "@/components/layout/AdminLayout";
-import About from "@/pages/About";
 import Analytics from "@/pages/Analytics";
+import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import RegisterPage from "@/pages/RegisterPage";
-
 
 import { createBrowserRouter } from "react-router";
 
@@ -14,8 +13,9 @@ export const router = createBrowserRouter([
         path: "/",
         children: [
             {
-                Component: About,
-                path: "about",
+                index: true,
+                Component: Home,
+                path: "/home"
             },
         ],
     },
@@ -37,5 +37,4 @@ export const router = createBrowserRouter([
         Component: RegisterPage,
         path: "/register",
     },
-
 ]);

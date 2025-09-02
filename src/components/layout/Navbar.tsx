@@ -10,20 +10,49 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Logo from "@/assets/logo/Logo";
 import { ModeToggle } from "./mode.toggle";
+import {
+    useLogoutMutation,
+    useUserInfoQuery,
+} from "@/redux/features/auth/auth.api";
+import { toast } from "sonner";
+import { useDispatch } from "react-redux";
+import { baseApi } from "@/redux/baseApi";
 
-// Navigation links array to be used in both desktop and mobile menus
+// Navigation links array
 const navigationLinks = [
     { to: "/", label: "Home" },
     { to: "/about", label: "About" },
 ];
 
 export default function Navbar() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    // Fetch user info
+    const { data, isLoading, isSuccess, refetch } = useUserInfoQuery(undefined);
+    const [logout] = useLogoutMutation();
+
+    
+    const user = isSuccess ? data?.data.email : null;
+
+    // Logout handler
+    const handleLogout = async () => {
+        try {
+            await logout().unwrap();
+            dispatch(baseApi.util.resetApiState()); // clears cache
+            navigate("/login");
+        } catch (error) {
+            toast.error("Logout failed");
+            console.error(error);
+        }
+    };
+
     return (
         <header className="border-b">
-            <div className="container mx-auto flex justify-between h-16 items-center  gap-4 px-6">
+            <div className="container mx-auto flex justify-between h-16 items-center gap-4 px-6">
                 {/* Left side */}
                 <div className="flex items-center gap-2">
                     {/* Mobile menu trigger */}
@@ -73,7 +102,9 @@ export default function Navbar() {
                                             className="w-full"
                                         >
                                             <NavigationMenuLink className="py-1.5">
-                                                <Link to={link.to}>{link.label}</Link>
+                                                <Link to={link.to}>
+                                                    {link.label}
+                                                </Link>
                                             </NavigationMenuLink>
                                         </NavigationMenuItem>
                                     ))}
@@ -83,34 +114,62 @@ export default function Navbar() {
                     </Popover>
                     {/* Main nav */}
                     <Link to="/">
-                        <Logo></Logo>
+                        <Logo />
                     </Link>
                 </div>
+
                 {/* Right side */}
                 <div className="flex items-center gap-2">
-                    <div className="flex  items-center gap-6">
-                        {/* Navigation menu */}
+                    <div className="flex items-center gap-6">
+                        {/* Desktop navigation menu */}
                         <NavigationMenu className="max-md:hidden">
                             <NavigationMenuList className="gap-2">
                                 {navigationLinks.map((link, index) => (
                                     <NavigationMenuItem key={index}>
-                                        <NavigationMenuLink asChild className="text-muted-foreground hover:text-primary py-1.5 font-medium">
-                                         <Link to={link.to}>{link.label}</Link>
+                                        <NavigationMenuLink
+                                            asChild
+                                            className="text-muted-foreground hover:text-primary py-1.5 font-medium"
+                                        >
+                                            <Link to={link.to}>
+                                                {link.label}
+                                            </Link>
                                         </NavigationMenuLink>
                                     </NavigationMenuItem>
                                 ))}
                             </NavigationMenuList>
                         </NavigationMenu>
                     </div>
-                    <Button
-                        asChild
-                        variant="ghost"
-                        size="sm"
-                        className="text-sm"
-                    >
-                        <Link to="/login">Login</Link>
-                    </Button>
-                    <ModeToggle></ModeToggle>
+
+                    
+                    {isLoading ? (
+                        
+                        <div className="w-20 h-8 bg-gray-200 rounded animate-pulse" />
+                    ) : user ? (
+                        <Button
+                            onClick={handleLogout}
+                            variant="ghost"
+                            size="sm"
+                            className="text-white bg-black border border-black transition-colors duration-300 ease-in-out
+                hover:bg-white hover:text-black
+                dark:text-black dark:bg-white dark:border-white dark:hover:bg-black dark:hover:text-white"
+                        >
+                            Logout
+                        </Button>
+                    ) : (
+                        <Button
+                            asChild
+                            variant="ghost"
+                            size="sm"
+                            className="text-white bg-black border border-black transition-colors duration-300 ease-in-out
+                hover:bg-white hover:text-black
+                dark:text-black dark:bg-white dark:border-white dark:hover:bg-black dark:hover:text-white"
+                        >
+                            <Link to="/login">Login</Link>
+                        </Button>
+                    )}
+
+                    {/* Dark mode toggle */}
+                    <ModeToggle />
                 </div>
             </div>
         </header>

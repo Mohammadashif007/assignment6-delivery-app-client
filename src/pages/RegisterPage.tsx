@@ -21,7 +21,7 @@ import {
 import { Input } from "@/components/ui/input";
 import Logo from "@/assets/logo/Logo";
 import { Separator } from "@/components/ui/separator";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Password from "@/components/ui/password";
 import { useRegisterMutation } from "@/redux/features/auth/auth.api";
 import { toast } from "sonner";
@@ -41,7 +41,8 @@ const formSchema = z
     });
 
 const RegisterPage = () => {
-    const [register] = useRegisterMutation();
+    const [register, { isLoading }] = useRegisterMutation();
+    const navigate = useNavigate();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -63,6 +64,7 @@ const RegisterPage = () => {
             const result = await register(userInfo).unwrap();
             if (result.success) {
                 toast.success(result.message);
+                navigate("/login");
             }
         } catch (error) {
             const errMsg =
@@ -103,13 +105,13 @@ const RegisterPage = () => {
                         >
                             <FormField
                                 control={form.control}
-                                name="email"
+                                name="name"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Email</FormLabel>
+                                        <FormLabel>Name</FormLabel>
                                         <FormControl>
                                             <Input
-                                                placeholder="Enter your email"
+                                                placeholder="Enter your name"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -119,13 +121,13 @@ const RegisterPage = () => {
                             />
                             <FormField
                                 control={form.control}
-                                name="name"
+                                name="email"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Name</FormLabel>
+                                        <FormLabel>Email</FormLabel>
                                         <FormControl>
                                             <Input
-                                                placeholder="Enter your name"
+                                                placeholder="Enter your email"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -166,7 +168,14 @@ const RegisterPage = () => {
                                 )}
                             />
                             <Button type="submit" className="w-full">
-                                Register
+                                {isLoading ? (
+                                    <div className="flex items-center gap-2">
+                                        <span className="animate-spin h-4 w-4 border-2 border-white border-t-transparent rounded-full"></span>
+                                        Creating account...
+                                    </div>
+                                ) : (
+                                    "Register"
+                                )}
                             </Button>
                         </form>
                     </Form>
