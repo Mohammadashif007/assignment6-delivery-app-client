@@ -23,8 +23,12 @@ import { baseApi } from "@/redux/baseApi";
 
 // Navigation links array
 const navigationLinks = [
-    { to: "/", label: "Home" },
+    { to: "/home", label: "Home" },
     { to: "/about", label: "About" },
+    { to: "/service", label: "Service" },
+    { to: "/features", label: "Service" },
+    { to: "/contact", label: "Service" },
+    { to: "/faq", label: "FAQ" },
 ];
 
 export default function Navbar() {
