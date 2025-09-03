@@ -29,6 +29,7 @@ import { toast } from "sonner";
 const formSchema = z
     .object({
         email: z.string().email("Please enter a valid email"),
+        role: z.string().min(2, "Please enter your role"),
         name: z.string().min(2, "Name at least must be 2 characters"),
         password: z.string().min(6, "Password must be at least 6 characters"),
         confirmPassword: z
@@ -49,6 +50,7 @@ const RegisterPage = () => {
         defaultValues: {
             email: "",
             name: "",
+            role: "",
             password: "",
             confirmPassword: "",
         },
@@ -58,6 +60,7 @@ const RegisterPage = () => {
         try {
             const userInfo = {
                 name: values.name,
+                role: values.role,
                 email: values.email,
                 password: values.password,
             };
@@ -112,6 +115,22 @@ const RegisterPage = () => {
                                         <FormControl>
                                             <Input
                                                 placeholder="Enter your name"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="role"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Role</FormLabel>
+                                        <FormControl>
+                                            <Input
+                                                placeholder="Enter your role"
                                                 {...field}
                                             />
                                         </FormControl>

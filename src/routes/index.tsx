@@ -1,7 +1,11 @@
 import App from "@/App";
 import AdminLayout from "@/components/layout/AdminLayout";
+import ReceiverLayout from "@/components/layout/ReceiverLayout";
+import SenderDashboardPage from "@/components/layout/sender/SenderDashboardPage";
+import SenderLayout from "@/components/layout/SenderLayout";
 import { role } from "@/constants/role";
 import About from "@/pages/About";
+import AddParcel from "@/pages/AddParcel";
 import Analytics from "@/pages/Analytics";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
@@ -34,18 +38,23 @@ export const router = createBrowserRouter([
                 Component: ServicesPage,
                 path: "service",
             },
-        ],
-    },
-    {
-        Component: withAuth(AdminLayout, role.admin as TRole),
-        path: "/admin",
-        children: [
             {
-                Component: Analytics,
-                path: "analytics",
+                Component: AddParcel,
+                path: "add-parcel",
             },
         ],
     },
+    // {
+    //     Component: withAuth(AdminLayout, role.admin as TRole),
+    //     path: "/admin",
+    //     children: [
+    //         {
+    //             index: true,
+    //             Component: Analytics,
+    //             path: "analytics",
+    //         },
+    //     ],
+    // },
     {
         Component: Login,
         path: "/login",
@@ -56,6 +65,18 @@ export const router = createBrowserRouter([
     },
     {
         Component: Unauthorized,
-        path: "/unauthorized"
+        path: "/unauthorized",
+    },
+    {
+        Component: SenderLayout,
+        path: "/sender",
+    },
+    {
+        Component: ReceiverLayout,
+        path: "/receiver",
+    },
+    {
+        Component: AdminLayout,
+        path: "/admin"
     }
 ]);

@@ -26,7 +26,7 @@ const navigationLinks = [
     { to: "/home", label: "Home" },
     { to: "/about", label: "About" },
     { to: "/service", label: "Service" },
-    { to: "/features", label: "Service" },
+    { to: "/add-parcel", label: "Add Parcel" },
     { to: "/contact", label: "Service" },
     { to: "/faq", label: "FAQ" },
 ];

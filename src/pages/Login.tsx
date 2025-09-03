@@ -52,7 +52,10 @@ export default function Login() {
             const result = await login(values).unwrap();
             if (result.success) {
                 toast.success(result.message);
-                navigate("/");
+                const role = result.data.user.role;
+                if (role === "ADMIN") navigate("/admin");
+                else if (role === "SENDER") navigate("/sender");
+                else if (role === "RECEIVER") navigate("/receiver");
             }
         } catch (error) {
             console.log(error);

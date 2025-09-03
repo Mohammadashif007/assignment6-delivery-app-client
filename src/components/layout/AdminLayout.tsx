@@ -1,10 +1,11 @@
-import { Outlet } from "react-router";
+import AdminDashboardPage from "./admin/AdminDashboardPage";
+
+
 
 const AdminLayout = () => {
     return (
         <div>
-            <h1>This is admin layout</h1>
-            <Outlet></Outlet>
+            <AdminDashboardPage></AdminDashboardPage>
         </div>
     );
 };
