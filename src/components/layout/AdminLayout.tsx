@@ -1,11 +1,9 @@
-import AdminDashboardPage from "./admin/AdminDashboardPage";
-
 
 
 const AdminLayout = () => {
     return (
         <div>
-            <AdminDashboardPage></AdminDashboardPage>
+            <h1>Admin layout</h1>
         </div>
     );
 };

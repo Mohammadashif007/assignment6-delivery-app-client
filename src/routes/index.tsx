@@ -1,18 +1,15 @@
 import App from "@/App";
 import AdminLayout from "@/components/layout/AdminLayout";
 import ReceiverLayout from "@/components/layout/ReceiverLayout";
-import SenderDashboardPage from "@/components/layout/sender/SenderDashboardPage";
 import SenderLayout from "@/components/layout/SenderLayout";
-import { role } from "@/constants/role";
 import About from "@/pages/About";
 import AddParcel from "@/pages/AddParcel";
-import Analytics from "@/pages/Analytics";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import RegisterPage from "@/pages/RegisterPage";
+import CreateParcel from "@/pages/Sender/CreateParcel";
 import ServicesPage from "@/pages/Service";
 import Unauthorized from "@/pages/Unauthorized";
-import type { TRole } from "@/types";
 import { withAuth } from "@/utils/withAuth";
 
 import { createBrowserRouter } from "react-router";
@@ -70,6 +67,12 @@ export const router = createBrowserRouter([
     {
         Component: SenderLayout,
         path: "/sender",
+        children: [
+            {
+                path: "create-parcel",
+                Component: CreateParcel,
+            },
+        ],
     },
     {
         Component: ReceiverLayout,
@@ -77,6 +80,6 @@ export const router = createBrowserRouter([
     },
     {
         Component: AdminLayout,
-        path: "/admin"
-    }
+        path: "/admin",
+    },
 ]);

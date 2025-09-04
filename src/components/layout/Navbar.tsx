@@ -21,6 +21,7 @@ import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import { baseApi } from "@/redux/baseApi";
 
+
 // Navigation links array
 const navigationLinks = [
     { to: "/home", label: "Home" },
@@ -38,8 +39,7 @@ export default function Navbar() {
     // Fetch user info
     const { data, isLoading, isSuccess, refetch } = useUserInfoQuery(undefined);
     const [logout] = useLogoutMutation();
-
-    
+  
     const user = isSuccess ? data?.data.email : null;
 
     // Logout handler
