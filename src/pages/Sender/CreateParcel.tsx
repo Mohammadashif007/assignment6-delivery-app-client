@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/form";
 import { useCreateParcelMutation } from "@/redux/features/sender/sender.api";
 import { toast } from "sonner";
+import { useNavigate } from "react-router";
+
 
 type ParcelFormValues = {
     weight: string;
@@ -20,6 +22,7 @@ type ParcelFormValues = {
 };
 
 const CreateParcel = () => {
+    const navigate = useNavigate();
     const form = useForm<ParcelFormValues>({
         defaultValues: {
             weight: "",
@@ -36,6 +39,8 @@ const CreateParcel = () => {
             const parcel = await createParcel(values).unwrap();
             if (parcel.success) {
                 toast.success("Parcel created successfully");
+                form.reset();
+                navigate("/sender/dashboard");
             }
         } catch (error) {
             console.error("Error creating parcel:", error);

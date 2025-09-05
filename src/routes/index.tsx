@@ -8,6 +8,7 @@ import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import RegisterPage from "@/pages/RegisterPage";
 import CreateParcel from "@/pages/Sender/CreateParcel";
+import SenderDashboardHome from "@/pages/Sender/SenderDashboardHome";
 import ServicesPage from "@/pages/Service";
 import Unauthorized from "@/pages/Unauthorized";
 import { withAuth } from "@/utils/withAuth";
@@ -71,6 +72,10 @@ export const router = createBrowserRouter([
             {
                 path: "create-parcel",
                 Component: CreateParcel,
+            },
+            {
+                path: "dashboard",
+                Component: SenderDashboardHome,
             },
         ],
     },

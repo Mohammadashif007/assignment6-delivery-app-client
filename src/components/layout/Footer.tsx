@@ -1,4 +1,5 @@
 import Logo from "@/assets/logo/Logo";
+import MainLogo from "../MainLogo/MainLogo";
 
 const Footer = () => {
     return (
@@ -56,10 +57,7 @@ const Footer = () => {
                             </svg>
                         </div> */}
                         <div className="flex items-center gap-2">
-                            <Logo></Logo>
-                            <p className="text-2xl font-bold">
-                                Parcel Delivery Service
-                            </p>
+                            <MainLogo></MainLogo>
                         </div>
 
                         <p className="mt-6 max-w-md text-center leading-relaxed text-foreground sm:max-w-xs sm:text-left">

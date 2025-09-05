@@ -20,6 +20,7 @@ import {
 import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import { baseApi } from "@/redux/baseApi";
+import MainLogo from "../MainLogo/MainLogo";
 
 
 // Navigation links array
@@ -117,9 +118,9 @@ export default function Navbar() {
                         </PopoverContent>
                     </Popover>
                     {/* Main nav */}
-                    <Link to="/">
-                        <Logo />
-                    </Link>
+                   
+                     <MainLogo></MainLogo>
+                    
                 </div>
 
                 {/* Right side */}
