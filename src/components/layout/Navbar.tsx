@@ -11,7 +11,6 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover";
 import { Link, useNavigate } from "react-router";
-import Logo from "@/assets/logo/Logo";
 import { ModeToggle } from "./mode.toggle";
 import {
     useLogoutMutation,
@@ -46,7 +45,7 @@ export default function Navbar() {
     // Logout handler
     const handleLogout = async () => {
         try {
-            await logout().unwrap();
+            await logout({}).unwrap();
             dispatch(baseApi.util.resetApiState()); // clears cache
             navigate("/login");
         } catch (error) {

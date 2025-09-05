@@ -54,7 +54,7 @@ export default function Login() {
                 toast.success(result.message);
                 const role = result.data.user.role;
                 if (role === "ADMIN") navigate("/admin");
-                else if (role === "SENDER") navigate("/sender");
+                else if (role === "SENDER") navigate("/sender/create-parcel");
                 else if (role === "RECEIVER") navigate("/receiver");
             }
         } catch (error) {

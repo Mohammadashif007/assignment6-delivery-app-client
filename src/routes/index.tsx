@@ -4,6 +4,9 @@ import ReceiverLayout from "@/components/layout/ReceiverLayout";
 import SenderLayout from "@/components/layout/SenderLayout";
 import About from "@/pages/About";
 import AddParcel from "@/pages/AddParcel";
+import ParcelPage from "@/pages/admin/parcel/ParcelPage";
+import UsersPage from "@/pages/admin/user/UsersPage";
+
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import RegisterPage from "@/pages/RegisterPage";
@@ -86,5 +89,15 @@ export const router = createBrowserRouter([
     {
         Component: AdminLayout,
         path: "/admin",
+        children: [
+            {
+                path: "users",
+                Component: UsersPage,
+            },
+            {
+                path: "parcel",
+                Component: ParcelPage,
+            },
+        ],
     },
 ]);

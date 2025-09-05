@@ -1,8 +1,26 @@
-import { Link, Outlet } from "react-router";
+import { Link, Outlet, useNavigate } from "react-router";
 import MainLogo from "../MainLogo/MainLogo";
 import { ModeToggle } from "./mode.toggle";
+import { useLogoutMutation } from "@/redux/features/auth/auth.api";
+import { useDispatch } from "react-redux";
+import { baseApi } from "@/redux/baseApi";
+
 
 export default function DashboardLayout() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [logout, { isLoading }] = useLogoutMutation();
+
+    const handleLogout = async () => {
+        try {
+            await logout({}).unwrap();
+            dispatch(baseApi.util.resetApiState());
+            navigate("/login");
+        } catch (error) {
+            console.error("Logout failed", error);
+        }
+    };
+
     return (
         <div className="flex h-screen bg-background text-foreground">
             {/* Sidebar */}
@@ -57,8 +75,12 @@ export default function DashboardLayout() {
                 </nav>
 
                 <div className="p-6 border-t flex flex-col gap-2">
-                    <button className="bg-primary text-primary-foreground px-3 py-1 rounded hover:bg-primary/90">
-                        Create Parcel
+                    <button
+                        disabled={isLoading}
+                        onClick={handleLogout}
+                        className="bg-primary text-primary-foreground px-3 py-1 rounded hover:bg-primary/90"
+                    >
+                        {isLoading ? "Logging out..." : "Logout"}
                     </button>
                 </div>
             </aside>
