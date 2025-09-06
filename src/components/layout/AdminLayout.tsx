@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate } from "react-router";
+import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import MainLogo from "../MainLogo/MainLogo";
 import { ModeToggle } from "./mode.toggle";
 import { useLogoutMutation } from "@/redux/features/auth/auth.api";
@@ -31,44 +31,44 @@ export default function AdminLayout() {
                 <nav className="flex-1 mt-4">
                     <ul className="space-y-2">
                         <li>
-                            <Link
+                            <NavLink
                                 to="/admin/dashboard"
                                 className="block px-4 py-2 rounded hover:bg-accent hover:text-accent-foreground"
                             >
                                 Dashboard
-                            </Link>
+                            </NavLink>
                         </li>
                         <li>
-                            <Link
+                            <NavLink
                                 to="/admin/parcels"
                                 className="block px-4 py-2 rounded hover:bg-accent hover:text-accent-foreground"
                             >
                                 Manage Parcels
-                            </Link>
+                            </NavLink>
                         </li>
                         <li>
-                            <Link
+                            <NavLink
                                 to="/admin/users"
                                 className="block px-4 py-2 rounded hover:bg-accent hover:text-accent-foreground"
                             >
                                 Manage Users
-                            </Link>
+                            </NavLink>
                         </li>
                         <li>
-                            <Link
+                            <NavLink
                                 to="/admin/analytics"
                                 className="block px-4 py-2 rounded hover:bg-accent hover:text-accent-foreground"
                             >
                                 Analytics
-                            </Link>
+                            </NavLink>
                         </li>
                         <li>
-                            <Link
+                            <NavLink
                                 to="/admin/settings"
                                 className="block px-4 py-2 rounded hover:bg-accent hover:text-accent-foreground"
                             >
                                 Settings
-                            </Link>
+                            </NavLink>
                         </li>
                     </ul>
                 </nav>

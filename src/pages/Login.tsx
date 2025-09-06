@@ -50,6 +50,7 @@ export default function Login() {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             const result = await login(values).unwrap();
+            console.log(result);
             if (result.success) {
                 toast.success(result.message);
                 const role = result.data.user.role;

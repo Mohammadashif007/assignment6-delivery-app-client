@@ -95,7 +95,7 @@ export const router = createBrowserRouter([
                 Component: UsersPage,
             },
             {
-                path: "parcel",
+                path: "parcels",
                 Component: ParcelPage,
             },
         ],
