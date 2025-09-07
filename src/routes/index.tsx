@@ -9,6 +9,8 @@ import UsersPage from "@/pages/admin/user/UsersPage";
 
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
+import DeliveryHistoryPage from "@/pages/receiver/DeliveryHistoryPage";
+import ReceiverParcelPage from "@/pages/receiver/ReceiverParcelPage";
 import RegisterPage from "@/pages/RegisterPage";
 import CreateParcel from "@/pages/Sender/CreateParcel";
 import SenderDashboardHome from "@/pages/Sender/SenderDashboardHome";
@@ -85,6 +87,16 @@ export const router = createBrowserRouter([
     {
         Component: ReceiverLayout,
         path: "/receiver",
+        children: [
+            {
+                path: "parcels",
+                Component: ReceiverParcelPage,
+            },
+            {
+                path: "parcel/history",
+                Component: DeliveryHistoryPage,
+            },
+        ],
     },
     {
         Component: AdminLayout,
