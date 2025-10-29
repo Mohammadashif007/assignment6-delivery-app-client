@@ -2,6 +2,7 @@ import App from "@/App";
 import AdminLayout from "@/components/layout/AdminLayout";
 import ReceiverLayout from "@/components/layout/ReceiverLayout";
 import SenderLayout from "@/components/layout/SenderLayout";
+import { ParcelStatistics } from "@/components/modules/Parcel/ParcelStatistics";
 import About from "@/pages/About";
 import AddParcel from "@/pages/AddParcel";
 import ParcelPage from "@/pages/admin/parcel/ParcelPage";
@@ -15,6 +16,7 @@ import RegisterPage from "@/pages/RegisterPage";
 import CreateParcel from "@/pages/Sender/CreateParcel";
 import SenderDashboardHome from "@/pages/Sender/SenderDashboardHome";
 import ServicesPage from "@/pages/Service";
+import TrackParcelPage from "@/pages/TrackParcelPage";
 import Unauthorized from "@/pages/Unauthorized";
 import { withAuth } from "@/utils/withAuth";
 
@@ -44,6 +46,10 @@ export const router = createBrowserRouter([
             {
                 Component: AddParcel,
                 path: "add-parcel",
+            },
+            {
+                Component: TrackParcelPage,
+                path: "trackParcel",
             },
         ],
     },
@@ -79,8 +85,12 @@ export const router = createBrowserRouter([
                 Component: CreateParcel,
             },
             {
-                path: "dashboard",
+                path: "shipments",
                 Component: SenderDashboardHome,
+            },
+            {
+                path: "dashboard",
+                Component: ParcelStatistics,
             },
         ],
     },
@@ -96,6 +106,10 @@ export const router = createBrowserRouter([
                 path: "parcel/history",
                 Component: DeliveryHistoryPage,
             },
+            {
+                path: "dashboard",
+                Component: ParcelStatistics,
+            },
         ],
     },
     {
@@ -103,12 +117,21 @@ export const router = createBrowserRouter([
         path: "/admin",
         children: [
             {
+                index: true,
+                Component: ParcelStatistics,
+            },
+            {
                 path: "users",
                 Component: UsersPage,
             },
             {
                 path: "parcels",
                 Component: ParcelPage,
+            },
+            {
+                index: true,
+                path: "dashboard",
+                Component: ParcelStatistics,
             },
         ],
     },

@@ -5,7 +5,6 @@ import { useLogoutMutation } from "@/redux/features/auth/auth.api";
 import { useDispatch } from "react-redux";
 import { baseApi } from "@/redux/baseApi";
 
-
 export default function DashboardLayout() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -26,7 +25,9 @@ export default function DashboardLayout() {
             {/* Sidebar */}
             <aside className="w-64 bg-card border-r shadow-sm flex flex-col">
                 <div className="p-6 flex items-center gap-2 border-b">
-                    <MainLogo></MainLogo>
+                    <Link to="/">
+                        <MainLogo></MainLogo>
+                    </Link>
                 </div>
 
                 <nav className="flex-1 mt-4">
@@ -49,7 +50,7 @@ export default function DashboardLayout() {
                         </li>
                         <li>
                             <Link
-                                to="/dashboard/shipments"
+                                to="/sender/shipments"
                                 className="block px-4 py-2 rounded hover:bg-accent hover:text-accent-foreground"
                             >
                                 My Shipments

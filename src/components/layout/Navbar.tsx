@@ -21,14 +21,13 @@ import { useDispatch } from "react-redux";
 import { baseApi } from "@/redux/baseApi";
 import MainLogo from "../MainLogo/MainLogo";
 
-
 // Navigation links array
 const navigationLinks = [
     { to: "/home", label: "Home" },
     { to: "/about", label: "About" },
     { to: "/service", label: "Service" },
     { to: "/add-parcel", label: "Add Parcel" },
-    { to: "/contact", label: "Service" },
+    { to: "/contact", label: "Contract" },
     { to: "/faq", label: "FAQ" },
 ];
 
@@ -37,9 +36,9 @@ export default function Navbar() {
     const navigate = useNavigate();
 
     // Fetch user info
-    const { data, isLoading, isSuccess, refetch } = useUserInfoQuery(undefined);
+    const { data, isLoading, isSuccess } = useUserInfoQuery(undefined);
     const [logout] = useLogoutMutation();
-  
+
     const user = isSuccess ? data?.data.email : null;
 
     // Logout handler
@@ -117,9 +116,10 @@ export default function Navbar() {
                         </PopoverContent>
                     </Popover>
                     {/* Main nav */}
-                   
-                     <MainLogo></MainLogo>
-                    
+
+                    <Link to="/">
+                        <MainLogo></MainLogo>
+                    </Link>
                 </div>
 
                 {/* Right side */}
@@ -144,9 +144,7 @@ export default function Navbar() {
                         </NavigationMenu>
                     </div>
 
-                    
                     {isLoading ? (
-                        
                         <div className="w-20 h-8 bg-gray-200 rounded animate-pulse" />
                     ) : user ? (
                         <Button
@@ -174,8 +172,7 @@ export default function Navbar() {
 
                     {/* Dark mode toggle */}
                     <div className="relative z-50">
-
-                    <ModeToggle />
+                        <ModeToggle />
                     </div>
                 </div>
             </div>

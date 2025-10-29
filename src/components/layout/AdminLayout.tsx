@@ -25,7 +25,9 @@ export default function AdminLayout() {
             {/* Sidebar */}
             <aside className="w-64 bg-card border-r shadow-sm flex flex-col">
                 <div className="p-6 flex items-center gap-2 border-b">
-                    <MainLogo />
+                    <Link to="/">
+                        <MainLogo />
+                    </Link>
                 </div>
 
                 <nav className="flex-1 mt-4">

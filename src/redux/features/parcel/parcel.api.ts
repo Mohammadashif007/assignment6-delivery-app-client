@@ -51,6 +51,15 @@ const parcelApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["Parcels"],
         }),
+        trackParcel: builder.query({
+            query: (trackingId) => ({
+                url: `/parcels/track/${trackingId}`,
+                method: "GET",
+            }),
+            providesTags: (result, error, trackingId) => [
+                { type: "Parcels", id: trackingId },
+            ],
+        }),
     }),
 });
 
@@ -62,4 +71,5 @@ export const {
     // useConfirmDeliveryParcelMutation,
     useBlockParcelMutation,
     useUnBlockParcelMutation,
+    useTrackParcelQuery,
 } = parcelApi;
