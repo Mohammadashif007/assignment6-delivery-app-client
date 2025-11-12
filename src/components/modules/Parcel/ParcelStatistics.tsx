@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useGetAllParcelQuery } from "@/redux/features/parcel/parcel.api";
+import React from "react";
 import {
     BarChart,
     Bar,
@@ -38,7 +39,7 @@ export function ParcelStatistics() {
         );
     }
 
-    const parcels = Array.isArray(data.data) ? data.data : [];
+    const parcels: any[] = Array.isArray(data.data) ? data.data : [];
 
     // Compute real stats
     const stats = [
@@ -101,10 +102,7 @@ export function ParcelStatistics() {
                             data={stats}
                             margin={{ top: 10, right: 20, left: 0, bottom: 20 }}
                         >
-                            <CartesianGrid
-                                strokeDasharray="3 3"
-                                stroke="#ccc"
-                            />
+                            <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
                             <XAxis dataKey="title" tick={{ fill: "#888" }} />
                             <YAxis tick={{ fill: "#888" }} />
                             <Tooltip
@@ -117,15 +115,61 @@ export function ParcelStatistics() {
                             />
                             <Bar dataKey="value" radius={[8, 8, 0, 0]}>
                                 {stats.map((entry, index) => (
-                                    <Cell
-                                        key={`cell-${index}`}
-                                        fill={entry.color}
-                                    />
+                                    <Cell key={`cell-${index}`} fill={entry.color} />
                                 ))}
                             </Bar>
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
+            </div>
+
+            {/* Parcels Table */}
+            <div className="bg-white dark:bg-gray-800 shadow rounded-xl p-6 overflow-x-auto">
+                <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
+                    🗂️ All Parcels
+                </h2>
+                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead className="bg-gray-50 dark:bg-gray-700">
+                        <tr>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                Tracking ID
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                Sender
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                Receiver
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                Status
+                            </th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                Created At
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        {parcels.map((parcel: any) => (
+                            <tr key={parcel.id}>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                    {parcel.trackingId}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                    {parcel.senderName}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                    {parcel.receiverName}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-gray-100">
+                                    {parcel.parcelStatus}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                                    {new Date(parcel.createdAt).toLocaleDateString()}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </div>
     );
