@@ -85,7 +85,6 @@ export const router = createBrowserRouter([
             },
             {
                 index: true,
-                path: "shipments",
                 Component: SenderDashboardHome,
             },
             // {
@@ -99,18 +98,17 @@ export const router = createBrowserRouter([
         path: "/receiver",
         children: [
             {
-                path: "parcels",
-                Component: ReceiverParcelPage,
-            },
-            {
                 path: "parcel/history",
                 Component: DeliveryHistoryPage,
+            },
+            {
+                index: true,
+                Component: ReceiverParcelPage,
             },
             {
                 path: "tracking",
                 Component: TrackParcelPage,
             },
-            
         ],
     },
     {
