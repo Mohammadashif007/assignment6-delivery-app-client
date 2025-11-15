@@ -8,6 +8,7 @@ import AddParcel from "@/pages/AddParcel";
 import ParcelPage from "@/pages/admin/parcel/ParcelPage";
 import UsersPage from "@/pages/admin/user/UsersPage";
 import ContactPage from "@/pages/ContactPage";
+import FAQPage from "@/pages/FAQPage";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import DeliveryHistoryPage from "@/pages/receiver/DeliveryHistoryPage";
@@ -54,6 +55,10 @@ export const router = createBrowserRouter([
             {
                 Component: ContactPage,
                 path: "contact",
+            },
+            {
+                Component: FAQPage,
+                path: "faq",
             },
         ],
     },
