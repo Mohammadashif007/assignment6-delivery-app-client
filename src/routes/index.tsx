@@ -7,6 +7,7 @@ import About from "@/pages/About";
 import AddParcel from "@/pages/AddParcel";
 import ParcelPage from "@/pages/admin/parcel/ParcelPage";
 import UsersPage from "@/pages/admin/user/UsersPage";
+import ContactPage from "@/pages/ContactPage";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import DeliveryHistoryPage from "@/pages/receiver/DeliveryHistoryPage";
@@ -50,6 +51,10 @@ export const router = createBrowserRouter([
                 Component: TrackParcelPage,
                 path: "trackParcel",
             },
+            {
+                Component: ContactPage,
+                path: "contact",
+            },
         ],
     },
     // {
@@ -87,10 +92,10 @@ export const router = createBrowserRouter([
                 index: true,
                 Component: SenderDashboardHome,
             },
-            // {
-            //     path: "dashboard",
-            //     Component: SenderStatistics,
-            // },
+            {
+                path: "shipments",
+                Component: SenderDashboardHome,
+            },
         ],
     },
     {

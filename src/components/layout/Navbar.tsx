@@ -21,7 +21,6 @@ import { useDispatch } from "react-redux";
 import { baseApi } from "@/redux/baseApi";
 import MainLogo from "../MainLogo/MainLogo";
 
-// Navigation links array
 const navigationLinks = [
     { to: "/home", label: "Home" },
     { to: "/about", label: "About" },
@@ -35,17 +34,26 @@ export default function Navbar() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // Fetch user info
     const { data, isLoading, isSuccess } = useUserInfoQuery(undefined);
     const [logout] = useLogoutMutation();
 
     const user = isSuccess ? data?.data.email : null;
+    const role = isSuccess ? data?.data.role : null;
 
-    // Logout handler
+    // Dashboard path based on role
+    const dashboardPath =
+        role === "ADMIN"
+            ? "/admin"
+            : role === "SENDER"
+            ? "/sender"
+            : role === "RECEIVER"
+            ? "/receiver"
+            : null;
+
     const handleLogout = async () => {
         try {
             await logout({}).unwrap();
-            dispatch(baseApi.util.resetApiState()); // clears cache
+            dispatch(baseApi.util.resetApiState());
             navigate("/login");
         } catch (error) {
             toast.error("Logout failed");
@@ -56,9 +64,7 @@ export default function Navbar() {
     return (
         <header className="border-b">
             <div className="container mx-auto flex justify-between h-16 items-center gap-4 px-6">
-                {/* Left side */}
                 <div className="flex items-center gap-2">
-                    {/* Mobile menu trigger */}
                     <Popover>
                         <PopoverTrigger asChild>
                             <Button
@@ -71,25 +77,10 @@ export default function Navbar() {
                                     width={16}
                                     height={16}
                                     viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    xmlns="http://www.w3.org/2000/svg"
                                 >
-                                    <path
-                                        d="M4 12L20 12"
-                                        className="origin-center -translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-x-0 group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[315deg]"
-                                    />
-                                    <path
-                                        d="M4 12H20"
-                                        className="origin-center transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.8)] group-aria-expanded:rotate-45"
-                                    />
-                                    <path
-                                        d="M4 12H20"
-                                        className="origin-center translate-y-[7px] transition-all duration-300 ease-[cubic-bezier(.5,.85,.25,1.1)] group-aria-expanded:translate-y-0 group-aria-expanded:rotate-[135deg]"
-                                    />
+                                    <path d="M4 5h16" />
+                                    <path d="M4 12h16" />
+                                    <path d="M4 19h16" />
                                 </svg>
                             </Button>
                         </PopoverTrigger>
@@ -115,34 +106,39 @@ export default function Navbar() {
                             </NavigationMenu>
                         </PopoverContent>
                     </Popover>
-                    {/* Main nav */}
 
                     <Link to="/">
-                        <MainLogo></MainLogo>
+                        <MainLogo />
                     </Link>
                 </div>
 
-                {/* Right side */}
                 <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-6">
-                        {/* Desktop navigation menu */}
-                        <NavigationMenu className="max-md:hidden">
-                            <NavigationMenuList className="gap-2">
-                                {navigationLinks.map((link, index) => (
-                                    <NavigationMenuItem key={index}>
-                                        <NavigationMenuLink
-                                            asChild
-                                            className="text-muted-foreground hover:text-primary py-1.5 font-medium"
-                                        >
-                                            <Link to={link.to}>
-                                                {link.label}
-                                            </Link>
-                                        </NavigationMenuLink>
-                                    </NavigationMenuItem>
-                                ))}
-                            </NavigationMenuList>
-                        </NavigationMenu>
-                    </div>
+                    <NavigationMenu className="max-md:hidden">
+                        <NavigationMenuList className="gap-2">
+                            {navigationLinks.map((link, index) => (
+                                <NavigationMenuItem key={index}>
+                                    <NavigationMenuLink
+                                        asChild
+                                        className="text-muted-foreground hover:text-primary py-1.5 font-medium"
+                                    >
+                                        <Link to={link.to}>{link.label}</Link>
+                                    </NavigationMenuLink>
+                                </NavigationMenuItem>
+                            ))}
+                        </NavigationMenuList>
+                    </NavigationMenu>
+
+                    {/* DASHBOARD BUTTON */}
+                    {role && (
+                        <Button
+                            asChild
+                            variant="outline"
+                            size="sm"
+                            className="border border-black dark:border-white"
+                        >
+                            <Link to={dashboardPath as string}>Dashboard</Link>
+                        </Button>
+                    )}
 
                     {isLoading ? (
                         <div className="w-20 h-8 bg-gray-200 rounded animate-pulse" />
@@ -151,9 +147,7 @@ export default function Navbar() {
                             onClick={handleLogout}
                             variant="ghost"
                             size="sm"
-                            className="text-white bg-black border border-black transition-colors duration-300 ease-in-out
-                hover:bg-white hover:text-black
-                dark:text-black dark:bg-white dark:border-white dark:hover:bg-black dark:hover:text-white"
+                            className="text-white bg-black border border-black hover:bg-white hover:text-black"
                         >
                             Logout
                         </Button>
@@ -162,18 +156,13 @@ export default function Navbar() {
                             asChild
                             variant="ghost"
                             size="sm"
-                            className="text-white bg-black border border-black transition-colors duration-300 ease-in-out
-                hover:bg-white hover:text-black
-                dark:text-black dark:bg-white dark:border-white dark:hover:bg-black dark:hover:text-white"
+                            className="text-white bg-black border border-black hover:bg-white hover:text-black"
                         >
                             <Link to="/login">Login</Link>
                         </Button>
                     )}
 
-                    {/* Dark mode toggle */}
-                    <div className="relative z-50">
-                        <ModeToggle />
-                    </div>
+                    <ModeToggle />
                 </div>
             </div>
         </header>
