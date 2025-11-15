@@ -17,10 +17,10 @@ const ParcelPage = () => {
     const [inTransitParcel] = useInTransitParcelMutation();
     const [outForDeliveryParcel] = useOutForDeliveryParcelMutation();
 
-    const parcelData = data?.data || [];
-
     if (isLoading)
         return <p className="text-muted-foreground">Loading parcels...</p>;
+
+    const parcelData = data?.data || [];
 
     // ! handle toggle block/unblock parcel
     const handleToggleBlock = async (parcelId: string, isBlocked: boolean) => {
@@ -66,7 +66,7 @@ const ParcelPage = () => {
     const handleOutForDeliveryParcel = async (parcelId: string) => {
         try {
             const result = await outForDeliveryParcel(parcelId);
-                       if (result?.data?.success) {
+            if (result?.data?.success) {
                 toast.success(result?.data?.message);
             }
         } catch (error) {
@@ -80,7 +80,7 @@ const ParcelPage = () => {
     return (
         <div className="p-6">
             <ParcelList
-                parcels={parcelData}
+                parcelLists={parcelData}
                 handleToggleBlock={handleToggleBlock}
                 handleParcelDispatch={handleParcelDispatch}
                 handleInTransitParcel={handleInTransitParcel}

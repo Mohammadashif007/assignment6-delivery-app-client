@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useGetAllParcelQuery } from "@/redux/features/parcel/parcel.api";
-import React from "react";
+
 import {
     BarChart,
     Bar,
@@ -13,8 +13,18 @@ import {
 } from "recharts";
 
 export function ParcelStatistics() {
-    // Fetch real parcel data
-    const { data, isLoading, isError } = useGetAllParcelQuery(undefined);
+    const {
+        data: adminData,
+        isLoading,
+        isError,
+    } = useGetAllParcelQuery(undefined);
+
+
+    const adminParcels = Array.isArray(adminData?.data) ? adminData.data : [];
+
+    const parcels = [...adminParcels];
+
+    console.log(parcels);
 
     // Loading skeleton
     if (isLoading) {
@@ -31,7 +41,7 @@ export function ParcelStatistics() {
     }
 
     // Error state
-    if (isError || !data) {
+    if (isError || !parcels) {
         return (
             <p className="text-center py-10 text-red-500">
                 Failed to load parcel data.
@@ -39,24 +49,27 @@ export function ParcelStatistics() {
         );
     }
 
-    const parcels: any[] = Array.isArray(data.data) ? data.data : [];
+    // const parcels: any[] = Array.isArray(data.data) ? data.data : [];
 
     // Compute real stats
     const stats = [
         { title: "Total Parcels", value: parcels.length, color: "#3B82F6" },
         {
             title: "Delivered Parcels",
-            value: parcels.filter((p: any) => p.parcelStatus === "DELIVERED").length,
+            value: parcels.filter((p: any) => p.parcelStatus === "DELIVERED")
+                .length,
             color: "#22C55E",
         },
         {
             title: "Pending Parcels",
-            value: parcels.filter((p: any) => p.parcelStatus === "PENDING").length,
+            value: parcels.filter((p: any) => p.parcelStatus === "PENDING")
+                .length,
             color: "#EAB308",
         },
         {
             title: "Cancelled",
-            value: parcels.filter((p: any) => p.parcelStatus === "CANCEL").length,
+            value: parcels.filter((p: any) => p.parcelStatus === "CANCEL")
+                .length,
             color: "#EF4444",
         },
     ];
@@ -102,7 +115,10 @@ export function ParcelStatistics() {
                             data={stats}
                             margin={{ top: 10, right: 20, left: 0, bottom: 20 }}
                         >
-                            <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
+                            <CartesianGrid
+                                strokeDasharray="3 3"
+                                stroke="#ccc"
+                            />
                             <XAxis dataKey="title" tick={{ fill: "#888" }} />
                             <YAxis tick={{ fill: "#888" }} />
                             <Tooltip
@@ -115,7 +131,10 @@ export function ParcelStatistics() {
                             />
                             <Bar dataKey="value" radius={[8, 8, 0, 0]}>
                                 {stats.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={entry.color} />
+                                    <Cell
+                                        key={`cell-${index}`}
+                                        fill={entry.color}
+                                    />
                                 ))}
                             </Bar>
                         </BarChart>
@@ -155,16 +174,18 @@ export function ParcelStatistics() {
                                     {parcel.trackingId}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
-                                    {parcel.senderName}
+                                    {parcel.senderId?.name}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
-                                    {parcel.receiverName}
+                                    {parcel?.receiverId?.name}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-gray-100">
                                     {parcel.parcelStatus}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                    {new Date(parcel.createdAt).toLocaleDateString()}
+                                    {new Date(
+                                        parcel.senderId?.createdAt
+                                    ).toLocaleDateString()}
                                 </td>
                             </tr>
                         ))}

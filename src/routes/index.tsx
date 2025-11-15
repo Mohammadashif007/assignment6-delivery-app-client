@@ -44,7 +44,7 @@ export const router = createBrowserRouter([
                 path: "service",
             },
             {
-                Component: AddParcel,
+                Component: withAuth(AddParcel),
                 path: "add-parcel",
             },
             {

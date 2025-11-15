@@ -2,6 +2,8 @@ import { baseApi } from "@/redux/baseApi";
 
 const parcelApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
+
+        // ! get all parcels by admin
         getAllParcel: builder.query({
             query: () => ({
                 url: "/parcels/admin",
@@ -9,6 +11,8 @@ const parcelApi = baseApi.injectEndpoints({
             }),
             providesTags: ["Parcels"],
         }),
+
+        // ! dispatch parcel by admin
         dispatchParcel: builder.mutation({
             query: (parcelId) => ({
                 url: `/parcels/dispatch/${parcelId}`,
@@ -16,6 +20,8 @@ const parcelApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["Parcels"],
         }),
+
+        // ! update status in-transit
         inTransitParcel: builder.mutation({
             query: (parcelId) => ({
                 url: `/parcels/in-transit/${parcelId}`,
@@ -23,6 +29,8 @@ const parcelApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["Parcels"],
         }),
+
+        // ! update status out-for-delivery
         outForDeliveryParcel: builder.mutation({
             query: (parcelId) => ({
                 url: `/parcels/out-for-delivery/${parcelId}`,
@@ -30,6 +38,8 @@ const parcelApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["Parcels"],
         }),
+
+        // ! update status confirm delivery
         confirmDeliveryParcel: builder.mutation({
             query: (parcelId) => ({
                 url: `/parcels/confirm-delivery/${parcelId}`,
@@ -37,6 +47,8 @@ const parcelApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["Parcels"],
         }),
+
+        // ! block parcel by admin
         blockParcel: builder.mutation({
             query: (parcelId) => ({
                 url: `/parcels/block/${parcelId}`,
@@ -44,6 +56,8 @@ const parcelApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["Parcels"],
         }),
+
+        // ! unblock parcel by admin
         unBlockParcel: builder.mutation({
             query: (parcelId) => ({
                 url: `/parcels/unblock/${parcelId}`,
@@ -51,6 +65,8 @@ const parcelApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["Parcels"],
         }),
+
+        // ! track parcel
         trackParcel: builder.query({
             query: (trackingId) => ({
                 url: `/parcels/track/${trackingId}`,

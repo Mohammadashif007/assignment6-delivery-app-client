@@ -3,6 +3,7 @@ import { useGetParcelQuery } from "@/redux/features/sender/sender.api";
 
 const SenderDashboardHome = () => {
     const { data, isLoading } = useGetParcelQuery(undefined);
+    console.log(data);
 
     if (isLoading) {
         return <p className="p-6 mx-auto text-center">Loading...🥱</p>;
