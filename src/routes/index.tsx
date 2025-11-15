@@ -107,9 +107,10 @@ export const router = createBrowserRouter([
                 Component: DeliveryHistoryPage,
             },
             {
-                path: "dashboard",
-                Component: ParcelStatistics,
+                path: "tracking",
+                Component: TrackParcelPage,
             },
+            
         ],
     },
     {

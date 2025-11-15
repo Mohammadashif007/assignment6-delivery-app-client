@@ -25,7 +25,9 @@ export default function ReceiverLayout() {
             {/* Sidebar */}
             <aside className="w-64 bg-card border-r shadow-sm flex flex-col">
                 <div className="p-6 flex items-center gap-2 border-b">
-                    <MainLogo />
+                    <Link to="/">
+                        <MainLogo />
+                    </Link>
                 </div>
 
                 <nav className="flex-1 mt-4">
@@ -48,26 +50,10 @@ export default function ReceiverLayout() {
                         </li>
                         <li>
                             <Link
-                                to="/receiver/track"
+                                to="/receiver/tracking"
                                 className="block px-4 py-2 rounded hover:bg-accent hover:text-accent-foreground"
                             >
                                 Track Parcel
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                to="/receiver/profile"
-                                className="block px-4 py-2 rounded hover:bg-accent hover:text-accent-foreground"
-                            >
-                                Profile
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                to="/receiver/settings"
-                                className="block px-4 py-2 rounded hover:bg-accent hover:text-accent-foreground"
-                            >
-                                Settings
                             </Link>
                         </li>
                     </ul>
