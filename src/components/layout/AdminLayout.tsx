@@ -56,22 +56,6 @@ export default function AdminLayout() {
                                 Manage Users
                             </NavLink>
                         </li>
-                        <li>
-                            <NavLink
-                                to="/admin/analytics"
-                                className="block px-4 py-2 rounded hover:bg-accent hover:text-accent-foreground"
-                            >
-                                Analytics
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
-                                to="/admin/settings"
-                                className="block px-4 py-2 rounded hover:bg-accent hover:text-accent-foreground"
-                            >
-                                Settings
-                            </NavLink>
-                        </li>
                     </ul>
                 </nav>
 

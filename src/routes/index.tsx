@@ -7,7 +7,6 @@ import About from "@/pages/About";
 import AddParcel from "@/pages/AddParcel";
 import ParcelPage from "@/pages/admin/parcel/ParcelPage";
 import UsersPage from "@/pages/admin/user/UsersPage";
-
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import DeliveryHistoryPage from "@/pages/receiver/DeliveryHistoryPage";
@@ -85,13 +84,14 @@ export const router = createBrowserRouter([
                 Component: CreateParcel,
             },
             {
+                index: true,
                 path: "shipments",
                 Component: SenderDashboardHome,
             },
-            {
-                path: "dashboard",
-                Component: ParcelStatistics,
-            },
+            // {
+            //     path: "dashboard",
+            //     Component: SenderStatistics,
+            // },
         ],
     },
     {

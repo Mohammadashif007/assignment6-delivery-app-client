@@ -34,14 +34,6 @@ export default function DashboardLayout() {
                     <ul className="space-y-2">
                         <li>
                             <Link
-                                to="/sender/dashboard"
-                                className="block px-4 py-2 rounded hover:bg-accent hover:text-accent-foreground"
-                            >
-                                Dashboard
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
                                 to="/sender/create-parcel"
                                 className="block px-4 py-2 rounded hover:bg-accent hover:text-accent-foreground"
                             >
@@ -54,22 +46,6 @@ export default function DashboardLayout() {
                                 className="block px-4 py-2 rounded hover:bg-accent hover:text-accent-foreground"
                             >
                                 My Shipments
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                to="/dashboard/profile"
-                                className="block px-4 py-2 rounded hover:bg-accent hover:text-accent-foreground"
-                            >
-                                Profile
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                to="/dashboard/settings"
-                                className="block px-4 py-2 rounded hover:bg-accent hover:text-accent-foreground"
-                            >
-                                Settings
                             </Link>
                         </li>
                     </ul>

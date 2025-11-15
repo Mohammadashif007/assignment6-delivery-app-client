@@ -9,12 +9,14 @@ const senderApi = baseApi.injectEndpoints({
                 method: "POST",
                 data: parcelInfo,
             }),
+            invalidatesTags: ["Parcels"],
         }),
         getParcel: builder.query({
             query: () => ({
                 url: "/parcels/me",
                 method: "GET",
             }),
+            providesTags: ["Parcels"],
         }),
         cancelParcel: builder.mutation({
             query: (parcelId: string) => ({

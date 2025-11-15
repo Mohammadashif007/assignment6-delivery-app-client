@@ -22,6 +22,7 @@ const ParcelPage = () => {
 
     const parcelData = data?.data || [];
 
+
     // ! handle toggle block/unblock parcel
     const handleToggleBlock = async (parcelId: string, isBlocked: boolean) => {
         try {

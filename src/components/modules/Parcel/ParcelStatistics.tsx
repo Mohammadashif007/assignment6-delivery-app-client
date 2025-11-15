@@ -14,16 +14,12 @@ import {
 
 export function ParcelStatistics() {
     const {
-        data: adminData,
+        data: parcelData,
         isLoading,
         isError,
     } = useGetAllParcelQuery(undefined);
 
-
-    const adminParcels = Array.isArray(adminData?.data) ? adminData.data : [];
-
-    const parcels = [...adminParcels];
-
+    const parcels = parcelData?.data?.parcelData || [];
     console.log(parcels);
 
     // Loading skeleton
@@ -41,7 +37,7 @@ export function ParcelStatistics() {
     }
 
     // Error state
-    if (isError || !parcels) {
+    if (isError) {
         return (
             <p className="text-center py-10 text-red-500">
                 Failed to load parcel data.
@@ -49,9 +45,7 @@ export function ParcelStatistics() {
         );
     }
 
-    // const parcels: any[] = Array.isArray(data.data) ? data.data : [];
-
-    // Compute real stats
+    // Compute stats
     const stats = [
         { title: "Total Parcels", value: parcels.length, color: "#3B82F6" },
         {
@@ -147,6 +141,7 @@ export function ParcelStatistics() {
                 <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
                     🗂️ All Parcels
                 </h2>
+
                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                     <thead className="bg-gray-50 dark:bg-gray-700">
                         <tr>
@@ -167,24 +162,32 @@ export function ParcelStatistics() {
                             </th>
                         </tr>
                     </thead>
+
                     <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                         {parcels.map((parcel: any) => (
-                            <tr key={parcel.id}>
+                            <tr key={parcel._id}>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                                     {parcel.trackingId}
                                 </td>
+
+                                {/* Sender (array) */}
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
-                                    {parcel.senderId?.name}
+                                    {parcel.senderId?.name || "N/A"}
                                 </td>
+
+                                {/* Receiver (array) */}
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
-                                    {parcel?.receiverId?.name}
+                                    {parcel.receiverId?.name || "N/A"}
                                 </td>
+
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-gray-100">
                                     {parcel.parcelStatus}
                                 </td>
+
+                                {/* Correct createdAt source */}
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                     {new Date(
-                                        parcel.senderId?.createdAt
+                                        parcel.createdAt
                                     ).toLocaleDateString()}
                                 </td>
                             </tr>

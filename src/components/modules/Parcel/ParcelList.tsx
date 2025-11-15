@@ -41,7 +41,7 @@ const ParcelList = ({ parcels }: { parcels: Parcel[] }) => {
     const [cancelParcel] = useCancelParcelMutation();
 
     if (!parcels?.length) {
-        return <p className="text-muted-foreground">No parcels found.</p>;
+        return <p className="text-muted-foreground">No parcels found....</p>;
     }
 
     const handleCancel = async (id: string) => {
@@ -53,7 +53,7 @@ const ParcelList = ({ parcels }: { parcels: Parcel[] }) => {
     };
 
     // !console
-    console.log(parcels);
+    console.log("Parcel....",parcels);
 
     return (
         <div className="space-y-6">

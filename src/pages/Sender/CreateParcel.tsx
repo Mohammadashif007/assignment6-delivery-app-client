@@ -40,7 +40,7 @@ const CreateParcel = () => {
             if (parcel.success) {
                 toast.success("Parcel created successfully");
                 form.reset();
-                navigate("/sender/dashboard");
+                navigate("/sender/shipments");
             }
         } catch (error) {
             console.error("Error creating parcel:", error);
